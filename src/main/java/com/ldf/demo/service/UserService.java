@@ -1,7 +1,6 @@
 package com.ldf.demo.service;
 
 import com.ldf.demo.pojo.User;
-import com.ldf.demo.utils.MD5Utils;
 
 /**
  * @author: 清峰

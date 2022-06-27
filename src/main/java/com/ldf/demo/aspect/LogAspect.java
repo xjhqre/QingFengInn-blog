@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
@@ -21,13 +22,15 @@ import java.util.Arrays;
 public class LogAspect {
     //获取日志类对象
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     //定义切面方法
     @Pointcut("execution(* com.ldf.demo.controller.*.*(..))")
-    public void log(){ }
+    public void log() {
+    }
 
     //定义前置通知
     @Before("log()")
-    public void doBefore(JoinPoint jp){
+    public void doBefore(JoinPoint jp) {
         //通过获取request上下文对象来获取request对象
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
@@ -42,21 +45,23 @@ public class LogAspect {
 
         //封装到实体类对象中，打印成日志
         RequestLog log = new RequestLog(id, url, classMethod, args);
-        logger.info("Request : {}",log);
+        logger.info("Request : {}", log);
     }
+
     //定义后置通知
-   @After("log()")
-    public void doAfter(){
+    @After("log()")
+    public void doAfter() {
 
     }
+
     //定义后置增强方法，相当于AfterReturningAdvice，方法正常退出时执行
-    @AfterReturning(returning = "result",pointcut = "log()")
+    @AfterReturning(returning = "result", pointcut = "log()")
     public void doAfterRuturn(Object result) {
-        logger.info("Result : {}" ,result);
+        logger.info("Result : {}", result);
     }
 
     //定义日志实体封装类
-    private class RequestLog{
+    private class RequestLog {
         private String url;
         private String ip;
         private String classMethod;

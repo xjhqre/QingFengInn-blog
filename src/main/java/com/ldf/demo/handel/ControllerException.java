@@ -22,21 +22,22 @@ import javax.servlet.http.HttpServletRequest;
 public class ControllerException {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     //定义这是一个异常处理类方法Exception异常都会经过该方法
     @ExceptionHandler(Exception.class)
-    public ModelAndView exceptionHandel(HttpServletRequest request,Exception e) throws Exception {
+    public ModelAndView exceptionHandel(HttpServletRequest request, Exception e) throws Exception {
         //错误信息打印成日志
-        logger.error("Request URL: {} Exception : {}",request.getRequestURL(),e);
+        logger.error("Request URL: {} Exception : {}", request.getRequestURL(), e);
 
         //当标识了状态码的时候就不拦截,抛出交给虚拟机处理如：404,500等
-        if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class)!=null){
+        if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null) {
             throw e;
         }
 
         //定义返回的视图
         ModelAndView mv = new ModelAndView();
-        mv.addObject("url",request.getRequestURL());
-        mv.addObject("exception",e);
+        mv.addObject("url", request.getRequestURL());
+        mv.addObject("exception", e);
         mv.setViewName("error/error");
         return mv;
     }

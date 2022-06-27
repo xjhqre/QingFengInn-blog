@@ -1,7 +1,7 @@
 package com.ldf.demo.interceptor;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import sun.net.www.protocol.http.HttpURLConnection;
+//import sun.net.www.protocol.http.HttpURLConnection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

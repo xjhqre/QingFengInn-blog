@@ -24,12 +24,13 @@ public class LoginController {
 
     //跳转到登录页面
     @GetMapping
-    public String loginPage(){
+    public String loginPage() {
         return "admin/login";
     }
+
     //跳转到首页
     @GetMapping("/index")
-    public String index(){
+    public String index() {
         return "admin/index";
     }
 
@@ -42,7 +43,7 @@ public class LoginController {
         User user = userService.checkUsernameAndPassword(username, password);
         if (user != null) {
             user.setPassword(null);
-            session.setAttribute("user",user);
+            session.setAttribute("user", user);
             return "admin/index";
         } else {
             attributes.addFlashAttribute("message", "用户名和密码错误");
@@ -52,7 +53,7 @@ public class LoginController {
 
     //注销功能
     @GetMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.removeAttribute("user");
         return "admin/login";
     }

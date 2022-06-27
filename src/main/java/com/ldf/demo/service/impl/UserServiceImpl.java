@@ -3,10 +3,10 @@ package com.ldf.demo.service.impl;
 import com.ldf.demo.mapper.UserMapper;
 import com.ldf.demo.pojo.User;
 import com.ldf.demo.service.UserService;
-import com.ldf.demo.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
+//import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author: 清峰
@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User checkUsernameAndPassword(String username, String password) {
-        return userMapper.checkUsernameAndPassword(username, MD5Utils.code(password));
+        // 修改加密使用的工具
+        return userMapper.checkUsernameAndPassword(username, DigestUtils.md5DigestAsHex(password.getBytes()));
     }
 }
